@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lk.template.org.dao.EmpposlnkDao">
+    
+    <insert id="insertByDepidPosids" parameterType="map">
+        insert into org_empposlnk(departmentid, positionid, employeeid, createtime, creator)
+        values
+        <foreach collection="posids" index="index" item="item" separator=",">
+            (#{depid}, #{item}, #{empid}, current_timestamp, #{creator})
+        </foreach>
+    </insert>
+
+    <select id="queryPosidsByEmpid" parameterType="Long" resultType="Long">
+        SELECT positionid
+        FROM org_empposlnk where employeeid=#{empid}
+    </select>
+    
+    <delete id="deleteByEmpid" parameterType="Long">
+        delete from org_empposlnk where employeeid=#{empid}
+    </delete>
+    
+</mapper>
